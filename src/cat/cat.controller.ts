@@ -7,9 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CatService } from './cat.service';
-import { CreateCatDto } from './dto/create-cat.dto';
-import { UpdateCatDto } from './dto/update-cat.dto';
+import { CatService, PostService } from './cat.service';
+import { CreateCatDto, CreatePostDto } from './dto/create-cat.dto';
+import { UpdateCatDto, UpdatePostDto } from './dto/update-cat.dto';
 
 @Controller('cat')
 export class CatController {
@@ -38,5 +38,35 @@ export class CatController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.catService.remove(+id);
+  }
+}
+
+@Controller('posts')
+export class PostController {
+  constructor(private readonly postService: PostService) {}
+
+  @Post('create')
+  create(@Body() createPostDto: CreatePostDto) {
+    return this.postService.create(createPostDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.postService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.postService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+    return this.postService.update(updatePostDto, +id);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.postService.remove(+id);
   }
 }

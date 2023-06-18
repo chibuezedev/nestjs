@@ -3,3 +3,9 @@ export class CreateCatDto {
   age: number;
   breed: string;
 }
+
+export class CreatePostDto {
+  title: string;
+  description: string;
+  media: Array<[]>;
+}
